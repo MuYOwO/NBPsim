@@ -11,16 +11,22 @@ namespace pe {
      * class T: Component type
      * class T_Equal: Binary predicate that takes two arguments of type T and returns a bool.
      *       Returns true if they are equivalent (same as operator==()).
+     * class T_Plus: Binary predicate that takes two arguments of tyep T and returns a T.
+     *       Returns the sum of these two arguments (same as operator+()).
+     * class T_Minus: Binary predicate that takes two arguments of tyep T and returns a T.
+     *       Returns the difference of these two arguments (same as operator-()).
      */
-    template <unsigned N, class T, class T_Equal = std::equal_to<T>>
+    template <unsigned N, class T, class T_Equal = std::equal_to<T>, class T_Plus = std::plus<T>, class T_Minus = std::minus<T>>
     class vector_t
     {
     public:
         using component_type = T;
         using component_equal = T_Equal;
+        using component_plus = T_Plus;
+        using component_minus = T_Minus;
         using component_reference = component_type&;
         using const_component_reference = const component_type&;
-        using vector_t_type = vector_t<N, T, T_Equal>;
+        using vector_t_type = vector_t<N, T, T_Equal, T_Plus, T_Minus>;
 
     public:
         vector_t() :m_components{ 0 } { }
@@ -52,12 +58,12 @@ namespace pe {
     public:
         vector_t_type& operator+=(const vector_t_type& rhs) {
             std::transform(m_components.begin(), m_components.end(), rhs.m_components.begin(), m_components.begin(),
-                [](T t1, T t2)-> T { return t1 + t2; });
+                [](T t1, T t2)-> T { return component_plus()(t1, t2); });
             return *this;
         }
         vector_t_type& operator-=(const vector_t_type& rhs) {
             std::transform(m_components.begin(), m_components.end(), rhs.m_components.begin(), m_components.begin(),
-                [](T t1, T t2)-> T { return t1 - t2; });
+                [](T t1, T t2)-> T { return component_minus()(t1, t2); });
             return *this;
         }
     public:
@@ -72,13 +78,13 @@ namespace pe {
         std::array<component_type, N> m_components;
     };
 
-    template <unsigned N, class T, class T_Equal>
-    inline vector_t<N, T, T_Equal> operator+(vector_t<N, T, T_Equal> lhs, const vector_t<N, T, T_Equal>& rhs) {
+    template <unsigned N, class T, class T_Equal, class T_Plus, class T_Minus>
+    inline vector_t<N, T, T_Equal, T_Plus, T_Minus> operator+(vector_t<N, T, T_Equal, T_Plus, T_Minus> lhs, const vector_t<N, T, T_Equal, T_Plus, T_Minus>& rhs) {
         return lhs += rhs;
     }
 
-    template <unsigned N, class T, class T_Equal>
-    inline vector_t<N, T, T_Equal> operator-(vector_t<N, T, T_Equal> lhs, const vector_t<N, T, T_Equal>& rhs) {
+    template <unsigned N, class T, class T_Equal, class T_Plus, class T_Minus>
+    inline vector_t<N, T, T_Equal, T_Plus, T_Minus> operator-(vector_t<N, T, T_Equal, T_Plus, T_Minus> lhs, const vector_t<N, T, T_Equal, T_Plus, T_Minus>& rhs) {
         return lhs -= rhs;
     }
 }
