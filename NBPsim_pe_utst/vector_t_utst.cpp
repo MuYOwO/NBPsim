@@ -63,6 +63,41 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(5, b.get<2>());
         }
 
+        TEST_METHOD(copy_assignment)
+        {
+            pe::vector_t<3, int> a{ 1,3,5 };
+            pe::vector_t<3, int> b;
+            b = a;
+            Assert::AreEqual(1, b.get<0>());
+            Assert::AreEqual(3, b.get<1>());
+            Assert::AreEqual(5, b.get<2>());
+            Assert::AreEqual(1, a.get<0>());
+            Assert::AreEqual(3, a.get<1>());
+            Assert::AreEqual(5, a.get<2>());
+        }
+
+        TEST_METHOD(move_assignment)
+        {
+            pe::vector_t<3, int> a{ 1,3,5 };
+            pe::vector_t<3, int> b;
+            b = std::move(a);
+            Assert::AreEqual(1, b.get<0>());
+            Assert::AreEqual(3, b.get<1>());
+            Assert::AreEqual(5, b.get<2>());
+        }
+
+        TEST_METHOD(dimension)
+        {
+            pe::vector_t<3, int> a;
+            pe::vector_t<5, double> b;
+            pe::vector_t<7, float> c;
+            pe::vector_t<8, unsigned> d;
+            Assert::AreEqual(3U, a.dimension());
+            Assert::AreEqual(5U, b.dimension());
+            Assert::AreEqual(7U, c.dimension());
+            Assert::AreEqual(8U, d.dimension());
+        }
+
         TEST_METHOD(retrieve_nonconst_component_reference)
         {
             pe::vector_t<3, int> a;
@@ -82,6 +117,55 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(88, a_2_ref_1);
             Assert::AreEqual(88, a[2]);
             Assert::AreEqual(a[2], a.get<2>());
+        }
+
+        TEST_METHOD(increment)
+        {
+            pe::vector_t<3, int> a{ 10,10,10 };
+            pe::vector_t<3, int> b{ 1,2,3 };
+            a += b;
+            Assert::AreEqual(11, a.get<0>());
+            Assert::AreEqual(12, a.get<1>());
+            Assert::AreEqual(13, a.get<2>());
+        }
+
+        TEST_METHOD(decrement)
+        {
+            pe::vector_t<3, int> a{ 10,10,10 };
+            pe::vector_t<3, int> b{ 1,2,3 };
+            a -= b;
+            Assert::AreEqual(9, a.get<0>());
+            Assert::AreEqual(8, a.get<1>());
+            Assert::AreEqual(7, a.get<2>());
+        }
+
+        TEST_METHOD(addition)
+        {
+            pe::vector_t<3, int> a{ 10,10,10 };
+            pe::vector_t<3, int> b{ 1,2,3 };
+            pe::vector_t<3, int> c = a + b;
+            Assert::AreEqual(11, c.get<0>());
+            Assert::AreEqual(12, c.get<1>());
+            Assert::AreEqual(13, c.get<2>());
+        }
+
+        TEST_METHOD(subtraction)
+        {
+            pe::vector_t<3, int> a{ 10,10,10 };
+            pe::vector_t<3, int> b{ 1,2,3 };
+            pe::vector_t<3, int> c = a - b;
+            Assert::AreEqual(9, c.get<0>());
+            Assert::AreEqual(8, c.get<1>());
+            Assert::AreEqual(7, c.get<2>());
+        }
+
+        TEST_METHOD(equality_and_inequality)
+        {
+            pe::vector_t<3, int> a{ 10,11,22 };
+            pe::vector_t<3, int> b = a;
+            pe::vector_t<3, int> c = { 1,2,3 };
+            Assert::IsTrue(a == b);
+            Assert::IsTrue(a != c);
         }
     };
 }
