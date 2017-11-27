@@ -115,6 +115,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Force.h" />
+    <ClInclude Include="NBPsim_pe.h" />
     <ClInclude Include="vector_t.h" />
   </ItemGroup>
   <ItemGroup>

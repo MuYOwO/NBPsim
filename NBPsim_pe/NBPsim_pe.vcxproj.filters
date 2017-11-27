@@ -18,6 +18,12 @@
     <ClInclude Include="vector_t.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NBPsim_pe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Force.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">

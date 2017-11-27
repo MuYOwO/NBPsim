@@ -41,30 +41,30 @@ namespace pe {
      *       Returns the quotient of these two arguments (same as operator/()).
      */
     template <
-        unsigned N,
-        class T,
-        class T_Equal = std::equal_to<T>,
-        class T_Plus = std::plus<T>,
-        class T_Minus = std::minus<T>,
-        class T_Multiplies = std::multiplies<T>,
-        class T_Divides = divides<T>
+        unsigned _N,
+        class _T,
+        class _T_Equal = std::equal_to<_T>,
+        class _T_Plus = std::plus<_T>,
+        class _T_Minus = std::minus<_T>,
+        class _T_Multiplies = std::multiplies<_T>,
+        class _T_Divides = divides<_T>
     >
         class vector_t
     {
     public:
-        using component_type = T;
-        using component_equal = T_Equal;
-        using component_plus = T_Plus;
-        using component_minus = T_Minus;
-        using component_multiplies = T_Multiplies;
-        using component_divides = T_Divides;
+        using component_type = _T;
+        using component_equal = _T_Equal;
+        using component_plus = _T_Plus;
+        using component_minus = _T_Minus;
+        using component_multiplies = _T_Multiplies;
+        using component_divides = _T_Divides;
         using component_reference = component_type&;
         using const_component_reference = const component_type&;
-        using vector_t_type = vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides>;
+        using vector_t_type = vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides>;
 
     public:
         vector_t() :m_components{ 0 } { }
-        template <class... Ts> vector_t(Ts... ts) : m_components{ ts... } { }
+        template <class... _Ts> vector_t(_Ts... ts) : m_components{ ts... } { }
         vector_t(const vector_t_type& other) :m_components(other.m_components) {}
         vector_t(vector_t_type&& other) :m_components(std::move(other.m_components)) {}
 
@@ -82,13 +82,13 @@ namespace pe {
 
         ~vector_t() = default;
     public:
-        constexpr unsigned dimension()const { return N; }
+        constexpr unsigned dimension()const { return _N; }
 
-        template <unsigned I> component_reference get() { return std::get<I>(m_components); }
-        template <unsigned I> const_component_reference get() const { return std::get<I>(m_components); }
+        template <unsigned _I> component_reference get() { return std::get<_I>(m_components); }
+        template <unsigned _I> const_component_reference get() const { return std::get<_I>(m_components); }
 
-        component_reference operator[](unsigned i) { assert(i < N); return m_components[i]; }
-        const_component_reference operator[](unsigned i) const { assert(i < N); return m_components[i]; }
+        component_reference operator[](unsigned i) { assert(i < _N); return m_components[i]; }
+        const_component_reference operator[](unsigned i) const { assert(i < _N); return m_components[i]; }
     public:
         component_type norm_squared()const {
             component_type sum = component_type();
@@ -127,62 +127,62 @@ namespace pe {
         }
 
     protected:
-        std::array<component_type, N> m_components;
+        std::array<component_type, _N> m_components;
     };
 
     template <
-        unsigned N,
-        class T,
-        class T_Equal,
-        class T_Plus,
-        class T_Minus,
-        class T_Multiplies,
-        class T_Divides
+        unsigned _N,
+        class _T,
+        class _T_Equal,
+        class _T_Plus,
+        class _T_Minus,
+        class _T_Multiplies,
+        class _T_Divides
     >
-        inline vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides>
-        operator+(vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides> lhs, const vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides>& rhs) {
+        inline vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides>
+        operator+(vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides> lhs, const vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides>& rhs) {
         return lhs += rhs;
     }
 
     template <
-        unsigned N,
-        class T,
-        class T_Equal,
-        class T_Plus,
-        class T_Minus,
-        class T_Multiplies,
-        class T_Divides
+        unsigned _N,
+        class _T,
+        class _T_Equal,
+        class _T_Plus,
+        class _T_Minus,
+        class _T_Multiplies,
+        class _T_Divides
     >
-        inline vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides>
-        operator-(vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides> lhs, const vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides>& rhs) {
+        inline vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides>
+        operator-(vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides> lhs, const vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides>& rhs) {
         return lhs -= rhs;
     }
 
     template <
-        unsigned N,
-        class T,
-        class T_Equal,
-        class T_Plus,
-        class T_Minus,
-        class T_Multiplies,
-        class T_Divides
+        unsigned _N,
+        class _T,
+        class _T_Equal,
+        class _T_Plus,
+        class _T_Minus,
+        class _T_Multiplies,
+        class _T_Divides
     >
-        inline vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides>
-        operator*(vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides> lhs, const T& rhs) {
+        inline vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides>
+        operator*(vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides> lhs, const _T& rhs) {
         return lhs *= rhs;
     }
 
     template <
-        unsigned N,
-        class T,
-        class T_Equal,
-        class T_Plus,
-        class T_Minus,
-        class T_Multiplies,
-        class T_Divides
+        unsigned _N,
+        class _T,
+        class _T_Equal,
+        class _T_Plus,
+        class _T_Minus,
+        class _T_Multiplies,
+        class _T_Divides
     >
-        inline vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides>
-        operator/(vector_t<N, T, T_Equal, T_Plus, T_Minus, T_Multiplies, T_Divides> lhs, const T& rhs) {
+        inline vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides>
+        operator/(vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides> lhs, const _T& rhs) {
         return lhs /= rhs;
     }
 }
