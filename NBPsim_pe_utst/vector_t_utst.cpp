@@ -119,6 +119,16 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(a[2], a.get<2>());
         }
 
+        TEST_METHOD(norm_squared)
+        {
+            pe::vector_t<3, int> a{ 3,4,5 };
+            int norm_sq = a.norm_squared();
+            Assert::AreEqual(50, norm_sq);
+            pe::vector_t<2, int> b{ 3,4 };
+            norm_sq = b.norm_squared();
+            Assert::AreEqual(25, norm_sq);
+        }
+
         TEST_METHOD(plus_equal)
         {
             pe::vector_t<3, int> a{ 10,10,10 };

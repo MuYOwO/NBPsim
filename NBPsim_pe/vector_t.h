@@ -90,6 +90,14 @@ namespace pe {
         component_reference operator[](unsigned i) { assert(i < N); return m_components[i]; }
         const_component_reference operator[](unsigned i) const { assert(i < N); return m_components[i]; }
     public:
+        component_type norm_squared()const {
+            component_type sum = component_type();
+            for (const component_type& v : m_components) {
+                sum = component_plus()(sum, component_multiplies()(v, v));
+            }
+            return sum;
+        }
+
         vector_t_type& operator+=(const vector_t_type& rhs) {
             std::transform(m_components.begin(), m_components.end(), rhs.m_components.begin(), m_components.begin(),
                 [](const component_type& t1, const component_type& t2)->component_type { return component_plus()(t1, t2); });
