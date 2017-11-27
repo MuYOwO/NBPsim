@@ -169,6 +169,21 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(3, a.get<2>());
         }
 
+        TEST_METHOD(opposite_and_negate)
+        {
+            pe::vector_t<3, int> a{ 3,6,9 };
+
+            pe::vector_t<3, int> b(-a);
+            Assert::AreEqual(-3, b.get<0>());
+            Assert::AreEqual(-6, b.get<1>());
+            Assert::AreEqual(-9, b.get<2>());
+
+            pe::vector_t<3, int> c(a.opposite());
+            Assert::AreEqual(-3, c.get<0>());
+            Assert::AreEqual(-6, c.get<1>());
+            Assert::AreEqual(-9, c.get<2>());
+        }
+
         TEST_METHOD(addition)
         {
             pe::vector_t<3, int> a{ 10,10,10 };

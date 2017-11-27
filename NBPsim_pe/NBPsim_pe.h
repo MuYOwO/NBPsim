@@ -1,10 +1,11 @@
 #pragma once
 
-namespace pe {
+namespace pe
+{
     /**
      * The universal type used for computation.
      */
-    using data_t = double;
+    using value_t = double;
 
     /**
      * Using SI base units:

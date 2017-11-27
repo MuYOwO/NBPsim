@@ -6,7 +6,8 @@
 #include <unordered_map>
 #include <xstddef>
 
-namespace pe {
+namespace pe
+{
 
     /**
      * <xstddef> does not have std::divides.
@@ -63,7 +64,7 @@ namespace pe {
         using vector_t_type = vector_t<_N, _T, _T_Equal, _T_Plus, _T_Minus, _T_Multiplies, _T_Divides>;
 
     public:
-        vector_t() :m_components{ 0 } { }
+        vector_t() :m_components{ component_type() } { }
         template <class... _Ts> vector_t(_Ts... ts) : m_components{ ts... } { }
         vector_t(const vector_t_type& other) :m_components(other.m_components) {}
         vector_t(vector_t_type&& other) :m_components(std::move(other.m_components)) {}
@@ -118,6 +119,9 @@ namespace pe {
                 [&c](const component_type& t)->component_type {return component_divides()(t, c); });
             return *this;
         }
+
+        vector_t_type opposite()const { vector_t_type v; return v -= *this; }
+        vector_t_type operator-()const { return opposite(); }
     public:
         bool operator==(const vector_t_type& rhs)const {
             return std::equal(m_components.begin(), m_components.end(), rhs.m_components.begin(), component_equal());
