@@ -119,7 +119,7 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(a[2], a.get<2>());
         }
 
-        TEST_METHOD(increment)
+        TEST_METHOD(plus_equal)
         {
             pe::vector_t<3, int> a{ 10,10,10 };
             pe::vector_t<3, int> b{ 1,2,3 };
@@ -129,7 +129,7 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(13, a.get<2>());
         }
 
-        TEST_METHOD(decrement)
+        TEST_METHOD(minus_equal)
         {
             pe::vector_t<3, int> a{ 10,10,10 };
             pe::vector_t<3, int> b{ 1,2,3 };
@@ -137,6 +137,26 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(9, a.get<0>());
             Assert::AreEqual(8, a.get<1>());
             Assert::AreEqual(7, a.get<2>());
+        }
+
+        TEST_METHOD(scalar_multiplies_equal)
+        {
+            pe::vector_t<3, int> a{ 2,6,8 };
+            int c = 3;
+            a *= c;
+            Assert::AreEqual(6, a.get<0>());
+            Assert::AreEqual(18, a.get<1>());
+            Assert::AreEqual(24, a.get<2>());
+        }
+
+        TEST_METHOD(scalar_divides_equal)
+        {
+            pe::vector_t<3, int> a{ 3,6,9 };
+            int c = 3;
+            a /= c;
+            Assert::AreEqual(1, a.get<0>());
+            Assert::AreEqual(2, a.get<1>());
+            Assert::AreEqual(3, a.get<2>());
         }
 
         TEST_METHOD(addition)
@@ -157,6 +177,26 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(9, c.get<0>());
             Assert::AreEqual(8, c.get<1>());
             Assert::AreEqual(7, c.get<2>());
+        }
+
+        TEST_METHOD(scalar_multiplication)
+        {
+            pe::vector_t<3, int> a{ 2,6,8 };
+            int c = 3;
+            pe::vector_t<3, int> b = a * c;
+            Assert::AreEqual(6, b.get<0>());
+            Assert::AreEqual(18, b.get<1>());
+            Assert::AreEqual(24, b.get<2>());
+        }
+
+        TEST_METHOD(scalar_division)
+        {
+            pe::vector_t<3, int> a{ 3,6,9 };
+            int c = 3;
+            pe::vector_t<3, int> b = a / c;
+            Assert::AreEqual(1, b.get<0>());
+            Assert::AreEqual(2, b.get<1>());
+            Assert::AreEqual(3, b.get<2>());
         }
 
         TEST_METHOD(equality_and_inequality)
