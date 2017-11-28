@@ -29,16 +29,16 @@ namespace pe
 
     /**
      * unsigned N: Number of dimensions
-     * class T: Component type
-     * class T_Equal: Binary predicate that takes two arguments of type T and returns a bool.
+     * class _T: Component type
+     * class _T_Equal: Binary predicate that takes two arguments of type T and returns a bool.
      *       Returns true if they are equivalent (same as operator==()).
-     * class T_Plus: Binary predicate that takes two arguments of tyep T and returns a T.
+     * class _T_Plus: Binary predicate that takes two arguments of tyep T and returns a T.
      *       Returns the sum of these two arguments (same as operator+()).
-     * class T_Minus: Binary predicate that takes two arguments of tyep T and returns a T.
+     * class _T_Minus: Binary predicate that takes two arguments of tyep T and returns a T.
      *       Returns the difference of these two arguments (same as operator-()).
-     * class T_Multiplies: Binary predicate that takes two arguments of tyep T and returns a T.
+     * class _T_Multiplies: Binary predicate that takes two arguments of tyep T and returns a T.
      *       Returns the product of these two arguments (same as operator*()).
-     * class T_Divides: Binary predicate that takes two arguments of tyep T and returns a T.
+     * class _T_Divides: Binary predicate that takes two arguments of tyep T and returns a T.
      *       Returns the quotient of these two arguments (same as operator/()).
      */
     template <
@@ -85,8 +85,8 @@ namespace pe
     public:
         constexpr unsigned dimension()const { return _N; }
 
-        template <unsigned _I> component_reference get() { return std::get<_I>(m_components); }
-        template <unsigned _I> const_component_reference get() const { return std::get<_I>(m_components); }
+        template<unsigned _I> component_reference get() { return std::get<_I>(m_components); }
+        template<unsigned _I> const_component_reference get() const { return std::get<_I>(m_components); }
 
         component_reference operator[](unsigned i) { assert(i < _N); return m_components[i]; }
         const_component_reference operator[](unsigned i) const { assert(i < _N); return m_components[i]; }

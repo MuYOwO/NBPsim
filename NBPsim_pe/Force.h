@@ -9,7 +9,7 @@
 namespace pe
 {
     /**
-     * unsigned N: Number of dimensions
+     * unsigned _N: Number of dimensions
      */
     template <unsigned _N>
     class Force
@@ -28,8 +28,8 @@ namespace pe
     public:
         constexpr unsigned dimension()const { return _N; }
 
-        template <unsigned _I> component_type& get() { return m_force_components.get<_I>(); }
-        template <unsigned _I> const component_type& get() const { return m_force_componentsget<_I>(); }
+        template<unsigned _I> component_type& get() { return m_force_components.get<_I>(); }
+        template<unsigned _I> const component_type& get() const { return m_force_components.get<_I>(); }
 
         component_type& operator[](unsigned i) { assert(i < _N); return m_force_components[i]; }
         const component_type& operator[](unsigned i) const { assert(i < _N); return m_force_components[i]; }
@@ -53,8 +53,11 @@ namespace pe
         Force_type opposite()const { Force_type v; return v -= *this; }
         Force_type operator-()const { return opposite(); }
     public:
+        bool operator==(const Force_type& rhs)const { return m_force_components == rhs.m_force_components; }
+        bool operator!=(const Force_type& rhs)const { return m_force_components != rhs.m_force_components; }
+    public:
         /// TODO
-        // void to_acceleration()const {}
+        // void to_acceleration(mass_t kg)const {}
 
     protected:
         vector_t_type m_force_components;

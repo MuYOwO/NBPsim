@@ -32,5 +32,14 @@
     <ClCompile Include="Force_utst.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Acceleration_utst.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Velocity_utst.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Displacement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

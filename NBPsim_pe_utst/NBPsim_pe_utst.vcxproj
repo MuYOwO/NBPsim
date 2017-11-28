@@ -152,6 +152,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Acceleration_utst.cpp" />
+    <ClCompile Include="Displacement.cpp" />
     <ClCompile Include="Force_utst.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -160,6 +162,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="vector_t_utst.cpp" />
+    <ClCompile Include="Velocity_utst.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NBPsim_pe\NBPsim_pe.vcxproj">
