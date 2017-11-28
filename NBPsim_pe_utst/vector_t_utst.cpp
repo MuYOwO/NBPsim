@@ -112,7 +112,7 @@ namespace NBPsim_pe_utst
 
             int& a_2_ref_0 = a[2];
             int& a_2_ref_1 = a.get<2>();
-            Assert::AreEqual(&a_2_ref_0, &a_2_ref_1);
+            Assert::AreSame(a_2_ref_0, a_2_ref_1);
             a_2_ref_0 = 88;
             Assert::AreEqual(88, a_2_ref_1);
             Assert::AreEqual(88, a[2]);

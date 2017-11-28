@@ -5,7 +5,7 @@ namespace pe
     /**
      * The universal type used for computation.
      */
-    using value_t = double;
+    using universal_t = double;
 
     /**
      * Using SI base units:
@@ -13,4 +13,8 @@ namespace pe
      * Length:      m
      * Time:        s
      */
+    using component_t = universal_t;
+    using mass_t = universal_t;
+    using length_t = universal_t;
+    using time_t = universal_t;
 }

@@ -15,7 +15,8 @@ namespace pe
     class Force
     {
     public:
-        using vector_t_type = vector_t<_N, value_t>;
+        using component_type = pe::component_t;
+        using vector_t_type = vector_t<_N, component_type>;
         using Force_type = Force<_N>;
     public:
         Force() = default;
@@ -27,16 +28,16 @@ namespace pe
     public:
         constexpr unsigned dimension()const { return _N; }
 
-        template <unsigned _I> value_t& get() { return m_force_components.get<_I>(); }
-        template <unsigned _I> const value_t& get() const { return m_force_componentsget<_I>(); }
+        template <unsigned _I> component_type& get() { return m_force_components.get<_I>(); }
+        template <unsigned _I> const component_type& get() const { return m_force_componentsget<_I>(); }
 
-        value_t& operator[](unsigned i) { assert(i < _N); return m_force_components[i]; }
-        const value_t& operator[](unsigned i) const { assert(i < _N); return m_force_components[i]; }
+        component_type& operator[](unsigned i) { assert(i < _N); return m_force_components[i]; }
+        const component_type& operator[](unsigned i) const { assert(i < _N); return m_force_components[i]; }
     public:
-        value_t norm_squared()const {
+        component_type norm_squared()const {
             return m_force_components.norm_squared();
         }
-        value_t norm()const {
+        component_type norm()const {
             return ::sqrt(m_force_components.norm_squared());
         }
 
@@ -51,6 +52,9 @@ namespace pe
 
         Force_type opposite()const { Force_type v; return v -= *this; }
         Force_type operator-()const { return opposite(); }
+    public:
+        /// TODO
+        // void to_acceleration()const {}
 
     protected:
         vector_t_type m_force_components;
