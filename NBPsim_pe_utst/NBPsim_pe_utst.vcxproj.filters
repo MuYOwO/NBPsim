@@ -38,7 +38,10 @@
     <ClCompile Include="Velocity_utst.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Displacement.cpp">
+    <ClCompile Include="Displacement_utst.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics_utst.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

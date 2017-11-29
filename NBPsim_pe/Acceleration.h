@@ -33,6 +33,9 @@ namespace pe
 
         component_type& operator[](unsigned i) { assert(i < _N); return m_acceleration_components[i]; }
         const component_type& operator[](unsigned i) const { assert(i < _N); return m_acceleration_components[i]; }
+
+        vector_t_type& components() { return m_acceleration_components; }
+        const vector_t_type& components()const { return m_acceleration_components; }
     public:
         component_type norm_squared()const {
             return m_acceleration_components.norm_squared();

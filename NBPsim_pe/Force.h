@@ -33,6 +33,9 @@ namespace pe
 
         component_type& operator[](unsigned i) { assert(i < _N); return m_force_components[i]; }
         const component_type& operator[](unsigned i) const { assert(i < _N); return m_force_components[i]; }
+
+        vector_t_type& components() { return m_force_components; }
+        const vector_t_type& components()const { return m_force_components; }
     public:
         component_type norm_squared()const {
             return m_force_components.norm_squared();
@@ -55,9 +58,6 @@ namespace pe
     public:
         bool operator==(const Force_type& rhs)const { return m_force_components == rhs.m_force_components; }
         bool operator!=(const Force_type& rhs)const { return m_force_components != rhs.m_force_components; }
-    public:
-        /// TODO
-        // void to_acceleration(mass_t kg)const {}
 
     protected:
         vector_t_type m_force_components;

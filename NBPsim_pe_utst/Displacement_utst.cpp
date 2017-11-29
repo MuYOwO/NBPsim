@@ -76,6 +76,14 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(a[2], a.get<2>());
         }
 
+        TEST_METHOD(components)
+        {
+            pe::Displacement<3> a{ 1.,2.,3. };
+            Assert::AreEqual(1., a.components().get<0>());
+            Assert::AreEqual(2., a.components().get<1>());
+            Assert::AreEqual(3., a.components().get<2>());
+        }
+
         TEST_METHOD(norm_squared_and_norm)
         {
             pe::Displacement<3> a{ 2.,3.,4. };
