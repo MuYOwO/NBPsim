@@ -116,10 +116,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Acceleration.h" />
+    <ClInclude Include="Body.h" />
     <ClInclude Include="Displacement.h" />
     <ClInclude Include="Force.h" />
     <ClInclude Include="NBPsim_pe.h" />
     <ClInclude Include="Physics.h" />
+    <ClInclude Include="Position.h" />
     <ClInclude Include="vector_t.h" />
     <ClInclude Include="Velocity.h" />
   </ItemGroup>

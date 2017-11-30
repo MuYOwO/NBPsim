@@ -153,9 +153,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Acceleration_utst.cpp" />
+    <ClCompile Include="Body_utst.cpp" />
     <ClCompile Include="Displacement_utst.cpp" />
     <ClCompile Include="Force_utst.cpp" />
     <ClCompile Include="Physics_utst.cpp" />
+    <ClCompile Include="Position_utst.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

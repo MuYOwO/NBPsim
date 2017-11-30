@@ -44,5 +44,11 @@
     <ClCompile Include="Physics_utst.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Position_utst.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Body_utst.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
