@@ -44,6 +44,12 @@ namespace pe
             return ::sqrt(m_displacement_components.norm_squared());
         }
 
+        /// TODO: Implement scalar multiplication and division for each physics Class.
+        /// TODO: Implement this function
+        Displacement_type unit_vector()const {
+            return Displacement_type();
+        }
+
         Displacement_type& operator+=(const Displacement_type& rhs) {
             m_displacement_components += rhs.m_displacement_components;
             return *this;

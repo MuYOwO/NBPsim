@@ -5,46 +5,52 @@
 #include "Acceleration.h"
 #include "Displacement.h"
 #include "Force.h"
+#include "Position.h"
 #include "vector_t.h"
 #include "Velocity.h"
 
 namespace pe
 {
     /**
-    * unsigned _N: Number of dimensions
-    */
-    template <unsigned _N>
+     * unsigned _N: Number of dimensions
+     */
     class Physics
     {
-    public:
-        using vector_t_type = vector_t<_N, pe::component_t>;
-        using Force_type = Force<_N>;
-        using Acceleration_type = Acceleration<_N>;
-        using Velocity_type = Velocity<_N>;
-        using Displacement_type = Displacement<_N>;
     public:
         Physics() = delete;
         ~Physics() = delete;
     public:
-        static Acceleration_type to_acceleration(const Force_type& n, pe::mass_t kg) {
+        static constexpr pe::universal_t G = 6.674E-11; /* m3 kg-1 s-2 */
+    public:
+        template <unsigned _N>
+        static Acceleration<_N> to_acceleration(const Force<_N>& n, pe::mass_t kg) {
             /**
              * a = F / m
              */
-            return Acceleration_type(std::move(n.components() / kg));
+            return Acceleration<_N>(std::move(n.components() / kg));
         }
 
-        static Velocity_type to_delta_velocity(const Acceleration_type& m_s2, pe::time_t delta_s) {
+        template <unsigned _N>
+        static Velocity<_N> to_delta_velocity(const Acceleration<_N>& m_s2, pe::time_t delta_s) {
             /**
              * delta_v = a * delta_t
              */
-            return Velocity_type(std::move(m_s2.components() * delta_s));
+            return Velocity<_N>(std::move(m_s2.components() * delta_s));
         }
 
-        static Displacement_type to_displacement(const Velocity_type& m_s, pe::time_t delta_s) {
+        template <unsigned _N>
+        static Displacement<_N> to_displacement(const Velocity<_N>& m_s, pe::time_t delta_s) {
             /**
              * s = v * delta_t
              */
-            return Displacement_type(std::move(m_s.components() * delta_s));
+            return Displacement<_N>(std::move(m_s.components() * delta_s));
+        }
+
+        template <unsigned _N>
+        static Force<_N> gravitational_force_magnitude(const Position<_N>& p1, const Position<_N>& p2, pe::mass_t m1, pe::mass_t m2) {
+            /// TODO: Implement scalar multiplication and division for each physics Class.
+            /// TODO: Implement this function
+            return Force<_N>();
         }
     };
 }
