@@ -44,12 +44,25 @@ namespace pe
             return ::sqrt(m_force_components.norm_squared());
         }
 
+        Force_type unit_vector()const {
+            return *this / norm();
+        }
+
         Force_type& operator+=(const Force_type& rhs) {
             m_force_components += rhs.m_force_components;
             return *this;
         }
         Force_type& operator-=(const Force_type& rhs) {
             m_force_components -= rhs.m_force_components;
+            return *this;
+        }
+
+        Force_type& operator*=(const component_type& rhs) {
+            m_force_components *= rhs;
+            return *this;
+        }
+        Force_type& operator/=(const component_type& rhs) {
+            m_force_components /= rhs;
             return *this;
         }
 
@@ -71,5 +84,19 @@ namespace pe
     template <unsigned _N>
     inline Force<_N> operator-(Force<_N> lhs, const Force<_N>& rhs) {
         return lhs -= rhs;
+    }
+
+    template <unsigned _N>
+    inline Force<_N> operator*(Force<_N> lhs, const typename Force<_N>::component_type& rhs) {
+        return lhs *= rhs;
+    }
+    template <unsigned _N>
+    inline Force<_N> operator*(const typename Force<_N>::component_type& lhs, Force<_N> rhs) {
+        return rhs *= lhs;
+    }
+
+    template <unsigned _N>
+    inline Force<_N> operator/(Force<_N> lhs, const typename Force<_N>::component_type& rhs) {
+        return lhs /= rhs;
     }
 }

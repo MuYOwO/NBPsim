@@ -44,10 +44,8 @@ namespace pe
             return ::sqrt(m_displacement_components.norm_squared());
         }
 
-        /// TODO: Implement scalar multiplication and division for each physics Class.
-        /// TODO: Implement this function
         Displacement_type unit_vector()const {
-            return Displacement_type();
+            return *this / norm();
         }
 
         Displacement_type& operator+=(const Displacement_type& rhs) {
@@ -56,6 +54,15 @@ namespace pe
         }
         Displacement_type& operator-=(const Displacement_type& rhs) {
             m_displacement_components -= rhs.m_displacement_components;
+            return *this;
+        }
+
+        Displacement_type& operator*=(const component_type& rhs) {
+            m_displacement_components *= rhs;
+            return *this;
+        }
+        Displacement_type& operator/=(const component_type& rhs) {
+            m_displacement_components /= rhs;
             return *this;
         }
 
@@ -77,5 +84,19 @@ namespace pe
     template <unsigned _N>
     inline Displacement<_N> operator-(Displacement<_N> lhs, const Displacement<_N>& rhs) {
         return lhs -= rhs;
+    }
+
+    template <unsigned _N>
+    inline Displacement<_N> operator*(Displacement<_N> lhs, const typename Displacement<_N>::component_type& rhs) {
+        return lhs *= rhs;
+    }
+    template <unsigned _N>
+    inline Displacement<_N> operator*(const typename Displacement<_N>::component_type& lhs, Displacement<_N> rhs) {
+        return rhs *= lhs;
+    }
+
+    template <unsigned _N>
+    inline Displacement<_N> operator/(Displacement<_N> lhs, const typename Displacement<_N>::component_type& rhs) {
+        return lhs /= rhs;
     }
 }

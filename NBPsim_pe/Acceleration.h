@@ -44,12 +44,25 @@ namespace pe
             return ::sqrt(m_acceleration_components.norm_squared());
         }
 
+        Acceleration_type unit_vector()const {
+            return *this / norm();
+        }
+
         Acceleration_type& operator+=(const Acceleration_type& rhs) {
             m_acceleration_components += rhs.m_acceleration_components;
             return *this;
         }
         Acceleration_type& operator-=(const Acceleration_type& rhs) {
             m_acceleration_components -= rhs.m_acceleration_components;
+            return *this;
+        }
+
+        Acceleration_type& operator*=(const component_type& rhs) {
+            m_acceleration_components *= rhs;
+            return *this;
+        }
+        Acceleration_type& operator/=(const component_type& rhs) {
+            m_acceleration_components /= rhs;
             return *this;
         }
 
@@ -71,5 +84,19 @@ namespace pe
     template <unsigned _N>
     inline Acceleration<_N> operator-(Acceleration<_N> lhs, const Acceleration<_N>& rhs) {
         return lhs -= rhs;
+    }
+
+    template <unsigned _N>
+    inline Acceleration<_N> operator*(Acceleration<_N> lhs, const typename Acceleration<_N>::component_type& rhs) {
+        return lhs *= rhs;
+    }
+    template <unsigned _N>
+    inline Acceleration<_N> operator*(const typename Acceleration<_N>::component_type& lhs, Acceleration<_N> rhs) {
+        return rhs *= lhs;
+    }
+
+    template <unsigned _N>
+    inline Acceleration<_N> operator/(Acceleration<_N> lhs, const typename Acceleration<_N>::component_type& rhs) {
+        return lhs /= rhs;
     }
 }

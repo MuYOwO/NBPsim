@@ -7,6 +7,7 @@
 #include "Displacement.h"
 #include "Force.h"
 #include "Physics.h"
+#include "Position.h"
 #include "vector_t.h"
 #include "Velocity.h"
 
@@ -48,5 +49,18 @@ namespace NBPsim_pe_utst
             Assert::IsTrue(m_expected == m_result);
         }
 
+        TEST_METHOD(gravitational_force_magnitude)
+        {
+            pe::Position<3> p1{ 100.,200.,300. };
+            pe::Position<3> p2{ 200.,400.,600. };
+
+            pe::mass_t kg1 = 200.;
+            pe::mass_t kg2 = 400.;
+
+            pe::universal_t r2 = ::pow(200. - 100., 2.) + ::pow(400. - 200., 2.) + ::pow(600. - 300., 2.);
+            pe::universal_t expected = pe::Physics::G * 200. * 400. / r2;
+
+            Assert::AreEqual(expected, pe::Physics::gravitational_force_magnitude(p1, p2, kg1, kg2));
+        }
     };
 }

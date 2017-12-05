@@ -44,12 +44,25 @@ namespace pe
             return ::sqrt(m_velocity_components.norm_squared());
         }
 
+        Velocity_type unit_vector()const {
+            return *this / norm();
+        }
+
         Velocity_type& operator+=(const Velocity_type& rhs) {
             m_velocity_components += rhs.m_velocity_components;
             return *this;
         }
         Velocity_type& operator-=(const Velocity_type& rhs) {
             m_velocity_components -= rhs.m_velocity_components;
+            return *this;
+        }
+
+        Velocity_type& operator*=(const component_type& rhs) {
+            m_velocity_components *= rhs;
+            return *this;
+        }
+        Velocity_type& operator/=(const component_type& rhs) {
+            m_velocity_components /= rhs;
             return *this;
         }
 
@@ -71,5 +84,19 @@ namespace pe
     template <unsigned _N>
     inline Velocity<_N> operator-(Velocity<_N> lhs, const Velocity<_N>& rhs) {
         return lhs -= rhs;
+    }
+
+    template <unsigned _N>
+    inline Velocity<_N> operator*(Velocity<_N> lhs, const typename Velocity<_N>::component_type& rhs) {
+        return lhs *= rhs;
+    }
+    template <unsigned _N>
+    inline Velocity<_N> operator*(const typename Velocity<_N>::component_type& lhs, Velocity<_N> rhs) {
+        return rhs *= lhs;
+    }
+
+    template <unsigned _N>
+    inline Velocity<_N> operator/(Velocity<_N> lhs, const typename Velocity<_N>::component_type& rhs) {
+        return lhs /= rhs;
     }
 }

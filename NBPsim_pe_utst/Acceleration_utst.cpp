@@ -87,10 +87,21 @@ namespace NBPsim_pe_utst
         TEST_METHOD(norm_squared_and_norm)
         {
             pe::Acceleration<3> a{ 2.,3.,4. };
-            double actual_norm_squared = 2.*2. + 3.*3. + 4.*4.;
-            double actual_norm = ::sqrt(actual_norm_squared);
+            pe::Acceleration<3>::component_type actual_norm_squared = 2.*2. + 3.*3. + 4.*4.;
+            pe::Acceleration<3>::component_type actual_norm = ::sqrt(actual_norm_squared);
             Assert::AreEqual(actual_norm_squared, a.norm_squared());
             Assert::AreEqual(actual_norm, a.norm());
+        }
+
+        TEST_METHOD(unit_vector)
+        {
+            pe::Acceleration<3> a{ 2.,3.,4. };
+            pe::Acceleration<3> u = a.unit_vector();
+            pe::Acceleration<3>::component_type actual_norm_squared = 2.*2. + 3.*3. + 4.*4.;
+            pe::Acceleration<3>::component_type actual_norm = ::sqrt(actual_norm_squared);
+            Assert::AreEqual(2. / actual_norm, u.get<0>());
+            Assert::AreEqual(3. / actual_norm, u.get<1>());
+            Assert::AreEqual(4. / actual_norm, u.get<2>());
         }
 
         TEST_METHOD(plus_equal)
@@ -111,6 +122,24 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(9., a.get<0>());
             Assert::AreEqual(8., a.get<1>());
             Assert::AreEqual(7., a.get<2>());
+        }
+
+        TEST_METHOD(multiplies_equal)
+        {
+            pe::Acceleration<3> a{ 12.,16.,18. };
+            a *= 2.;
+            Assert::AreEqual(24., a.get<0>());
+            Assert::AreEqual(32., a.get<1>());
+            Assert::AreEqual(36., a.get<2>());
+        }
+
+        TEST_METHOD(divides_equal)
+        {
+            pe::Acceleration<3> a{ 12.,16.,18. };
+            a /= 2.;
+            Assert::AreEqual(6., a.get<0>());
+            Assert::AreEqual(8., a.get<1>());
+            Assert::AreEqual(9., a.get<2>());
         }
 
         TEST_METHOD(opposite_and_negate)
@@ -146,6 +175,28 @@ namespace NBPsim_pe_utst
             Assert::AreEqual(9., c.get<0>());
             Assert::AreEqual(8., c.get<1>());
             Assert::AreEqual(7., c.get<2>());
+        }
+
+        TEST_METHOD(multiplication)
+        {
+            pe::Acceleration<3> a{ 12.,16.,18. };
+            pe::Acceleration<3> b = a * 2.;
+            pe::Acceleration<3> c = 3. * a;
+            Assert::AreEqual(24., b.get<0>());
+            Assert::AreEqual(32., b.get<1>());
+            Assert::AreEqual(36., b.get<2>());
+            Assert::AreEqual(36., c.get<0>());
+            Assert::AreEqual(48., c.get<1>());
+            Assert::AreEqual(54., c.get<2>());
+        }
+
+        TEST_METHOD(division)
+        {
+            pe::Acceleration<3> a{ 12.,16.,18. };
+            pe::Acceleration<3> b = a / 2.;
+            Assert::AreEqual(6., b.get<0>());
+            Assert::AreEqual(8., b.get<1>());
+            Assert::AreEqual(9., b.get<2>());
         }
 
         TEST_METHOD(equality_and_inequality)

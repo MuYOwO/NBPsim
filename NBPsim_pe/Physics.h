@@ -27,7 +27,7 @@ namespace pe
             /**
              * a = F / m
              */
-            return Acceleration<_N>(std::move(n.components() / kg));
+            return Acceleration<_N>(std::move((n / kg).components()));
         }
 
         template <unsigned _N>
@@ -35,7 +35,7 @@ namespace pe
             /**
              * delta_v = a * delta_t
              */
-            return Velocity<_N>(std::move(m_s2.components() * delta_s));
+            return Velocity<_N>(std::move((m_s2 * delta_s).components()));
         }
 
         template <unsigned _N>
@@ -43,14 +43,16 @@ namespace pe
             /**
              * s = v * delta_t
              */
-            return Displacement<_N>(std::move(m_s.components() * delta_s));
+            return Displacement<_N>(std::move((m_s * delta_s).components()));
         }
 
         template <unsigned _N>
-        static Force<_N> gravitational_force_magnitude(const Position<_N>& p1, const Position<_N>& p2, pe::mass_t m1, pe::mass_t m2) {
-            /// TODO: Implement scalar multiplication and division for each physics Class.
-            /// TODO: Implement this function
-            return Force<_N>();
+        static pe::universal_t gravitational_force_magnitude(const Position<_N>& m1, const Position<_N>& m2, pe::mass_t kg1, pe::mass_t kg2) {
+            /**
+             * F = G * m1*m2 / r^2
+             */
+            Displacement<_N> delta_m = m1 - m2;
+            return G * kg1*kg2 / delta_m.norm_squared();
         }
     };
 }
